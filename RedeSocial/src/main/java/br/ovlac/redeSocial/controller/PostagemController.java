@@ -4,6 +4,7 @@ import br.ovlac.redeSocial.model.Postagem;
 import br.ovlac.redeSocial.model.Usuario;
 import br.ovlac.redeSocial.service.PostagemService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,23 +16,23 @@ public class PostagemController {
     @Autowired
     private PostagemService postagemService;
 
-    @GetMapping("/postagemById/{id}")
-    public Optional<Postagem> buscaPostagemById(long id){
-        return postagemService.findById(id);
-    }
-
     @GetMapping("/postagens")
-    public List<Postagem> listaPostagens(){
+    public ResponseEntity<List<Postagem>> listaPostagens(){
         return postagemService.findAll();
     }
 
+    @GetMapping("/postagemById/{id}")
+    public ResponseEntity<Optional<Postagem>> buscaPostagemById(long id){
+        return postagemService.findById(id);
+    }
+
     @GetMapping("/postagemUsuarioByNome")
-    public List<Postagem> listarPostagemByUsuarioName(@RequestBody Usuario usuario){
+    public ResponseEntity<List<Postagem>> listarPostagemByUsuarioName(@RequestBody Usuario usuario){
         return postagemService.findByUsuario(usuario.getUsuario());
     }
 
     @PostMapping("/novaPostagem")
-    public Postagem criarPostagem(@RequestBody Postagem newPostagem){
+    public ResponseEntity<Postagem> criarPostagem(@RequestBody Postagem newPostagem){
         return postagemService.create(newPostagem);
     }
 

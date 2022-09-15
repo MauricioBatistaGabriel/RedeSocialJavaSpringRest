@@ -16,13 +16,13 @@ public class ComentarioServiceImpl implements ComentarioService{
     ComentarioRepository comentarioRepository;
 
     @Override
-    public List<Comentario> findAll() {
-        return comentarioRepository.findAll();
+    public ResponseEntity<List<Comentario>> findAll() {
+        return ResponseEntity.ok().body(comentarioRepository.findAll());
     }
 
     @Override
-    public Optional<Comentario> findById(long id) {
-        return comentarioRepository.findById(id);
+    public ResponseEntity<Optional<Comentario>> findById(long id) {
+        return ResponseEntity.ok().body(comentarioRepository.findById(id));
     }
 
     @Override

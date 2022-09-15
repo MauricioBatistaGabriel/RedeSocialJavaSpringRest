@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.Date;
 import java.util.List;
 
 @Entity(name = "postagem")
@@ -30,11 +31,11 @@ public class Postagem {
 
     @Getter
     @Setter
-    private Data dataAtual;
+    private Date dataAtual;
 
-    @Getter
-    @Setter
-    private List<Byte> imagens;
+//    @Getter
+//    @Setter
+//    private List<Byte> imagens;
 
     @Override
     public String  toString() {
