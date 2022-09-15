@@ -3,6 +3,7 @@ package br.ovlac.redeSocial.service;
 import br.ovlac.redeSocial.model.Usuario;
 import br.ovlac.redeSocial.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -18,32 +19,32 @@ public class UsuarioServiceImpl implements UsuarioService{
     private UsuarioRepository usuarioRepository;
 
     @Override
-    public List<Usuario> findAll() {
-        return usuarioRepository.findAll();
+    public ResponseEntity<List<Usuario>> findAll() {
+        return ResponseEntity.ok().body(usuarioRepository.findAll());
     }
 
     @Override
-    public Optional<Usuario> findById(long id) {
-        return usuarioRepository.findById(id);
+    public ResponseEntity<Optional<Usuario>> findById(long id) {
+        return ResponseEntity.ok().body(usuarioRepository.findById(id));
     }
 
     @Override
-    public Usuario findByUsuarioAndSenha(String usuario, String senha) {
-        return usuarioRepository.findByUsuarioAndSenha(usuario, senha) != null ? usuarioRepository.findByUsuarioAndSenha(usuario, senha) : null;
+    public ResponseEntity<Usuario> findByUsuarioAndSenha(String usuario, String senha) {
+        return usuarioRepository.findByUsuarioAndSenha(usuario, senha) != null ?
+                ResponseEntity.ok().body(usuarioRepository.findByUsuarioAndSenha(usuario, senha)) : ResponseEntity.badRequest().build();
     }
 
     @Override
-    public List<Usuario> findByUsuario(String usuarioNome){
-        return usuarioRepository.findByUsuario(usuarioNome);
+    public ResponseEntity<List<Usuario>> findByUsuario(String usuarioNome){
+        return ResponseEntity.ok().body(usuarioRepository.findByUsuario(usuarioNome));
     }
 
     @Override
-    public Usuario registrar(Usuario newUsuario) {
+    public ResponseEntity<Usuario> registrar(Usuario newUsuario) {
         if (newUsuario == null)
-            return newUsuario;
-        if (newUsuario != null)
-            usuarioRepository.save(newUsuario);
-        return newUsuario;
+            return ResponseEntity.badRequest().build();
+        else
+            return ResponseEntity.ok().body(usuarioRepository.save(newUsuario));
     }
 
     @Override

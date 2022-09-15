@@ -3,6 +3,7 @@ package br.ovlac.redeSocial.controller;
 import br.ovlac.redeSocial.model.Usuario;
 import br.ovlac.redeSocial.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,27 +16,27 @@ public class UsuarioController {
     UsuarioService usuarioService;
 
     @GetMapping("/dadosPessoais")
-    public Optional<Usuario> buscaUsuarioById(long id){
+    public ResponseEntity<Optional<Usuario>> buscaUsuarioById(long id){
         return usuarioService.findById(id);
     }
 
     @GetMapping("/usuarios")
-    public List<Usuario> listaUsuarios(){
+    public ResponseEntity<List<Usuario>> listaUsuarios(){
         return usuarioService.findAll();
     }
 
-    @GetMapping("/usuarioByNome")
-    public List<Usuario> listaUsuariopNome(@RequestBody String usuarioNome){
+    @PostMapping("/usuarioByNome")
+    public ResponseEntity<List<Usuario>> listaUsuariopNome(@RequestBody String usuarioNome){
         return usuarioService.findByUsuario(usuarioNome);
     }
 
     @PostMapping("/novoCadastro")
-    public Usuario cadastrarUsuario(@RequestBody Usuario newUsuario){
+    public ResponseEntity<Usuario> cadastrarUsuario(@RequestBody Usuario newUsuario){
              return usuarioService.registrar(newUsuario);
     }
 
     @PostMapping("/login")
-    public Usuario logarUsuario(@RequestBody String usuario, String senha){
+    public ResponseEntity<Usuario> logarUsuario(@RequestBody String usuario, String senha){
             return usuarioService.findByUsuarioAndSenha(usuario, senha);
     }
 

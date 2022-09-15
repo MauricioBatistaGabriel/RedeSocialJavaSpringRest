@@ -8,8 +8,8 @@ import java.util.Optional;
 
 public interface ComentarioService {
 
-    public List<Comentario> findAll();
-    public Optional<Comentario> findById(long id);
+    public ResponseEntity<List<Comentario>> findAll();
+    public ResponseEntity<Optional<Comentario>> findById(long id);
     public ResponseEntity<Comentario> create(Comentario newComentario);
     public Comentario update(Comentario updateComentario, long id);
     public void deleteById(long id);

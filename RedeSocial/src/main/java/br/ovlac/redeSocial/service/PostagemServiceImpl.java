@@ -4,6 +4,7 @@ import br.ovlac.redeSocial.model.Postagem;
 import br.ovlac.redeSocial.model.Usuario;
 import br.ovlac.redeSocial.repository.PostagemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
@@ -15,29 +16,27 @@ public class PostagemServiceImpl implements PostagemService{
     PostagemRepository postagemRepository;
 
     @Override
-    public List<Postagem> findAll() {
-        return postagemRepository.findAll();
+    public ResponseEntity<List<Postagem>> findAll() {
+        return ResponseEntity.ok().body(postagemRepository.findAll());
     }
 
     @Override
-    public Optional<Postagem> findById(long id) {
-        return postagemRepository.findById(id);
+    public ResponseEntity<Optional<Postagem>> findById(long id) {
+        return ResponseEntity.ok().body(postagemRepository.findById(id));
     }
 
     @Override
-    public List<Postagem> findByUsuario(String usuario){
-        return postagemRepository.findByUsuario(usuario);
+    public ResponseEntity<List<Postagem>> findByUsuario(String usuario){
+        return ResponseEntity.ok().body(postagemRepository.findByUsuario(usuario));
     }
 
     @Override
-    public Postagem create(Postagem newPostagem) {
+    public ResponseEntity<Postagem> create(Postagem newPostagem) {
         if (newPostagem == null)
-            return newPostagem;
+            return ResponseEntity.ok().body(newPostagem);
 
-        if (newPostagem != null)
-            return postagemRepository.save(newPostagem);
-
-        return newPostagem;
+        else
+            return ResponseEntity.ok().body(postagemRepository.save(newPostagem));
     }
 
     @Override
