@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
@@ -43,8 +44,12 @@ public class UsuarioServiceImpl implements UsuarioService{
     public ResponseEntity<Usuario> registrar(Usuario newUsuario) {
         if (newUsuario == null)
             return ResponseEntity.badRequest().build();
-        else
+        else{
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+            String password = newUsuario.getSenha();
+            newUsuario.setSenha(encoder.encode(password));
             return ResponseEntity.ok().body(usuarioRepository.save(newUsuario));
+        }
     }
 
     @Override
