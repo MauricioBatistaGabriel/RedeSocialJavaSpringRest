@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface PostagemService {
 
-    public ResponseEntity<List<Postagem>> findAll();
+    public List<Postagem> findAll();
     public ResponseEntity<Optional<Postagem>> findById(long id);
     public ResponseEntity<List<Postagem>> findByUsuario(String usuario);
     public ResponseEntity<Postagem> create(Postagem newPostagem);

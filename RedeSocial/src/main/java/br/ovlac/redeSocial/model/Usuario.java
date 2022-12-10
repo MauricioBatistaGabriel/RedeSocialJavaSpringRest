@@ -2,7 +2,6 @@ package br.ovlac.redeSocial.model;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
@@ -14,8 +13,7 @@ import java.util.List;
 @Entity(name = "usuario")
 public class Usuario implements UserDetails {
 
-    //RELACIONA O USUARIO COM SUAS POSTAGENS
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario")
+    @OneToMany(mappedBy = "usuario")
     private List<Postagem> postagens;
 
     @Id
@@ -51,7 +49,6 @@ public class Usuario implements UserDetails {
     @Override
     public String toString() {
         return "Usuario{" +
-                "postagens=" + postagens +
                 ", id=" + id +
                 ", usuario='" + usuario + '\'' +
                 ", email='" + email + '\'' +

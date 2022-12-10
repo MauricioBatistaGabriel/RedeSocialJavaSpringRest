@@ -1,6 +1,5 @@
 package br.ovlac.redeSocial.model;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import javax.persistence.*;
@@ -12,9 +11,15 @@ import java.util.List;
 public class Postagem {
 
     //RELACIONA A POSTAGEM COM O USUARIO
+    @Setter
+    //GERA PROBLEMA AO RETORNAR POSTAGEM COM USUARIO
+    @Getter
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "usuario_id")
     private Usuario usuario;
+
+    @Getter
+    @Setter
+    private long idUsuario;
 
     //RELACIONA A POSTAGEM COM VARIOS COMENTARIOS
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "postagem")
@@ -31,7 +36,7 @@ public class Postagem {
 
     @Getter
     @Setter
-    private Date dataAtual;
+    private Date dataAtual = new Date();
 
 //    @Getter
 //    @Setter
@@ -40,8 +45,7 @@ public class Postagem {
     @Override
     public String  toString() {
         return "Postagem{" +
-                "usuario=" + usuario +
-                ", id=" + id +
+                "username=" + usuario.getUsername() +
                 ", legenda='" + legenda + '\'' +
                 '}';
     }

@@ -6,7 +6,6 @@ import br.ovlac.redeSocial.service.PostagemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -17,7 +16,7 @@ public class PostagemController {
     private PostagemService postagemService;
 
     @GetMapping("/postagens")
-    public ResponseEntity<List<Postagem>> listaPostagens(){
+    public List<Postagem> listaPostagens(){
         return postagemService.findAll();
     }
 
