@@ -18,8 +18,8 @@ public class UsuarioController {
     @Autowired
     UsuarioService usuarioService;
 
-    @GetMapping("/dadosPessoais")
-    public ResponseEntity<Optional<Usuario>> buscaUsuarioById(long id){
+    @GetMapping("/dadosPessoais/{id}")
+    public ResponseEntity<Optional<Usuario>> buscaUsuarioById(@PathVariable Long id){
         return usuarioService.findById(id);
     }
 
@@ -28,8 +28,8 @@ public class UsuarioController {
         return usuarioService.findAll();
     }
 
-    @PostMapping("/usuarioByNome")
-    public ResponseEntity<List<Usuario>> listaUsuariopNome(@RequestBody String usuarioNome){
+    @GetMapping("/usuarioByNome/{usuarioNome}")
+    public ResponseEntity<List<Usuario>> listaUsuariopNome(@PathVariable String usuarioNome){
         return usuarioService.findByUsuario(usuarioNome);
     }
 
