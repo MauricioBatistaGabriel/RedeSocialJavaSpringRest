@@ -32,7 +32,7 @@ public class UsuarioServiceImpl implements UsuarioService{
     @Override
     public ResponseEntity<Usuario> findByUsuarioAndSenha(String usuario, String senha) {
         return usuarioRepository.findByUsuarioAndSenha(usuario, senha) != null ?
-                ResponseEntity.ok().body(usuarioRepository.findByUsuarioAndSenha(usuario, senha)) : ResponseEntity.badRequest().build();
+            ResponseEntity.ok().body(usuarioRepository.findByUsuarioAndSenha(usuario, senha)) : ResponseEntity.badRequest().build();
     }
 
     @Override

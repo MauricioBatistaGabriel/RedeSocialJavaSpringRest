@@ -13,7 +13,9 @@ import java.util.List;
 @Entity(name = "usuario")
 public class Usuario implements UserDetails {
 
-    @OneToMany(mappedBy = "usuario")
+    @Setter
+    @Getter
+    @OneToMany
     private List<Postagem> postagens;
 
     @Id
@@ -41,7 +43,6 @@ public class Usuario implements UserDetails {
     @Setter
     private Boolean isDesabilitado = false;
 
-    @Getter
     @Setter
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Perfil> perfis = new ArrayList<>();

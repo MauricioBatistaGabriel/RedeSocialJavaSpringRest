@@ -12,9 +12,8 @@ public class Postagem {
 
     //RELACIONA A POSTAGEM COM O USUARIO
     @Setter
-    //GERA PROBLEMA AO RETORNAR POSTAGEM COM USUARIO
     @Getter
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Usuario usuario;
 
     @Getter
