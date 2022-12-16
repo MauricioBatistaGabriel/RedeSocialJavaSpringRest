@@ -36,9 +36,6 @@ public class PostagemServiceImpl implements PostagemService{
 
     @Override
     public ResponseEntity<Postagem> create(Postagem newPostagem) {
-
-        Usuario UsuarioAux = usuarioRepository.findById(newPostagem.getIdUsuario()).get();
-        newPostagem.setUsuario(UsuarioAux);
         return ResponseEntity.ok().body(postagemRepository.save(newPostagem));
     }
 
