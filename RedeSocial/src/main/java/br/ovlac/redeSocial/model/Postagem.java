@@ -14,11 +14,8 @@ public class Postagem {
     @Setter
     @Getter
     @ManyToOne
+    @JoinColumn(name = "usuarioId")
     private Usuario usuario;
-
-    @Getter
-    @Setter
-    private long idUsuario;
 
     //RELACIONA A POSTAGEM COM VARIOS COMENTARIOS
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "postagem")

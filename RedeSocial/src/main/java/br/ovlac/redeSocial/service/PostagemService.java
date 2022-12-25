@@ -11,7 +11,7 @@ public interface PostagemService {
 
     public List<Postagem> findAll();
     public ResponseEntity<Optional<Postagem>> findById(long id);
-    public ResponseEntity<List<Postagem>> findByUsuario(String usuario);
+    public List<Postagem> findByUsuario_Id(long id);
     public ResponseEntity<Postagem> create(Postagem newPostagem);
     public Postagem update(Postagem newPostagem, long id);
     public void deleteById(long id);

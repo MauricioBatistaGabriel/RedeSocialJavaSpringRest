@@ -25,10 +25,6 @@ public class PostagemController {
         return postagemService.findById(id);
     }
 
-    @GetMapping("/postagemUsuarioByNome")
-    public ResponseEntity<List<Postagem>> listarPostagemByUsuarioName(@RequestBody Usuario usuario){
-        return postagemService.findByUsuario(usuario.getUsuario());
-    }
 
     @PostMapping("/novaPostagem")
     public ResponseEntity<Postagem> criarPostagem(@RequestBody Postagem newPostagem){
