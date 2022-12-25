@@ -1,12 +1,12 @@
 package br.ovlac.redeSocial.controller;
 
+import br.ovlac.redeSocial.model.Postagem;
 import br.ovlac.redeSocial.model.Usuario;
+import br.ovlac.redeSocial.repository.UsuarioRepository;
+import br.ovlac.redeSocial.service.PostagemService;
 import br.ovlac.redeSocial.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,9 +18,20 @@ public class UsuarioController {
     @Autowired
     UsuarioService usuarioService;
 
+    @Autowired
+    UsuarioRepository usuarioRepository;
+
+    @Autowired
+    PostagemService postagemService;
+
     @GetMapping("/dadosPessoais/{id}")
     public ResponseEntity<Optional<Usuario>> buscaUsuarioById(@PathVariable Long id){
         return usuarioService.findById(id);
+    }
+
+    @GetMapping("/postagemUsuario/{id}")
+    public List<Postagem> retornaListPostagemdeUsuario(@PathVariable long id){
+        return postagemService.findByUsuario_Id(id);
     }
 
     @GetMapping("/usuarios")
@@ -35,7 +46,7 @@ public class UsuarioController {
 
     @PostMapping("/novoCadastro")
     public ResponseEntity<Usuario> cadastrarUsuario(@RequestBody Usuario newUsuario){
-             return usuarioService.registrar(newUsuario);
+         return usuarioService.registrar(newUsuario);
     }
 
     @PostMapping("/login")

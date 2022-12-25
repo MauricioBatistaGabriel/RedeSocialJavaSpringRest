@@ -30,8 +30,8 @@ public class PostagemServiceImpl implements PostagemService{
     }
 
     @Override
-    public ResponseEntity<List<Postagem>> findByUsuario(String usuario){
-        return ResponseEntity.ok().body(postagemRepository.findByUsuario(usuario));
+    public List<Postagem> findByUsuario_Id(long id) {
+        return postagemRepository.findByUsuario_Id(id);
     }
 
     @Override

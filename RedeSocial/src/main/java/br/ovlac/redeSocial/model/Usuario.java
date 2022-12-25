@@ -13,9 +13,7 @@ import java.util.List;
 @Entity(name = "usuario")
 public class Usuario implements UserDetails {
 
-    @Setter
-    @Getter
-    @OneToMany
+    @OneToMany(mappedBy = "usuario")
     private List<Postagem> postagens;
 
     @Id
@@ -50,7 +48,6 @@ public class Usuario implements UserDetails {
     @Override
     public String toString() {
         return "Usuario{" +
-                ", id=" + id +
                 ", usuario='" + usuario + '\'' +
                 ", email='" + email + '\'' +
                 '}';
