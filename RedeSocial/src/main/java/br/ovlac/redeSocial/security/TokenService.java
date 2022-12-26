@@ -1,6 +1,6 @@
 package br.ovlac.redeSocial.security;
 
-import br.ovlac.redeSocial.model.Usuario;
+import br.ovlac.redeSocial.model.Student;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -20,7 +20,7 @@ public class TokenService {
     private String secret;
 
     public String gerarToken(Authentication authentication){
-        Usuario logado = (Usuario) authentication.getPrincipal();
+        Student logado = (Student) authentication.getPrincipal();
         Date hoje = new Date();
         Date dataExpiracao = new Date(hoje.getTime() + Long.parseLong(expiration));
 

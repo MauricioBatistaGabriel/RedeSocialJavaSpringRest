@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/loginUsuario")
-public class AutenticacaoController {
+@RequestMapping("/loginStudent")
+public class AuthenticationController {
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -27,13 +27,10 @@ public class AutenticacaoController {
     private TokenService tokenService;
 
     @PostMapping
-    public ResponseEntity<TokenDto> autenticar(@RequestBody @Valid LoginForm form){
-
-        UsernamePasswordAuthenticationToken dadosLogin = form.converter();
-        System.out.println("EMAIL: " + form.getEmail());
-        System.out.println("SENHA: " + form.getSenha());
+    public ResponseEntity<TokenDto> authetication(@RequestBody @Valid LoginForm form){
+        UsernamePasswordAuthenticationToken infoLogin = form.converter();
         try{
-            Authentication authentication = authenticationManager.authenticate(dadosLogin);
+            Authentication authentication = authenticationManager.authenticate(infoLogin);
             System.out.println("AUTHENTICATION: " + authentication);
             String token = tokenService.gerarToken(authentication);
             return ResponseEntity.ok(new TokenDto(token, "Bearer"));

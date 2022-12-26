@@ -1,6 +1,6 @@
 package br.ovlac.redeSocial.security;
 
-import br.ovlac.redeSocial.repository.UsuarioRepository;
+import br.ovlac.redeSocial.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,13 +20,13 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private AutenticacaoService autenticacaoService;
+    private AuthenticationService authenticationService;
 
     @Autowired
     private TokenService tokenService;
 
     @Autowired
-    private UsuarioRepository usuarioRepository;
+    private StudentRepository studentRepository;
 
     @Override
     @Bean
@@ -37,19 +37,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     //CONFIGURACOES DE AUTENTICACAO
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(autenticacaoService).passwordEncoder(new BCryptPasswordEncoder());
+        auth.userDetailsService(authenticationService).passwordEncoder(new BCryptPasswordEncoder());
     }
 
     //CONFIGURACAO DE AUTORIZACAO
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/loginUsuario").permitAll()
-                .antMatchers(HttpMethod.POST, "/novoCadastro").permitAll()
+                .antMatchers(HttpMethod.POST, "/loginStudent").permitAll()
+                .antMatchers(HttpMethod.POST, "/registerStudent").permitAll()
                 .anyRequest().authenticated()
                 .and().csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and().addFilterBefore(new AutenticacaoViaTokenFilter(tokenService, usuarioRepository), UsernamePasswordAuthenticationFilter.class)
+                .and().addFilterBefore(new AutenticacaoViaTokenFilter(tokenService, studentRepository), UsernamePasswordAuthenticationFilter.class)
                 .cors();
     }
 
