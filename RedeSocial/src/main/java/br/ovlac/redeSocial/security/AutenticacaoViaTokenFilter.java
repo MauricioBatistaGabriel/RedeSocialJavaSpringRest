@@ -1,28 +1,25 @@
 package br.ovlac.redeSocial.security;
 
-import br.ovlac.redeSocial.model.Usuario;
-import br.ovlac.redeSocial.repository.UsuarioRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import br.ovlac.redeSocial.model.Student;
+import br.ovlac.redeSocial.repository.StudentRepository;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
-
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-
 public class AutenticacaoViaTokenFilter extends OncePerRequestFilter {
 
     private TokenService tokenService;
 
-    private UsuarioRepository usuarioRepository;
+    private StudentRepository studentRepository;
 
-    public AutenticacaoViaTokenFilter(TokenService tokenService, UsuarioRepository usuarioRepository) {
+    public AutenticacaoViaTokenFilter(TokenService tokenService, StudentRepository studentRepository) {
         this.tokenService = tokenService;
-        this.usuarioRepository = usuarioRepository;
+        this.studentRepository = studentRepository;
     }
 
     @Override
@@ -39,8 +36,8 @@ public class AutenticacaoViaTokenFilter extends OncePerRequestFilter {
 
     private void autenticarCliente(String token){
         Long idUsuario = tokenService.getIdUsuario(token);
-        Usuario usuario = usuarioRepository.findById(idUsuario).get();
-        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(usuario, null, usuario.getAuthorities());
+        Student student = studentRepository.findById(idUsuario).get();
+        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(student, null, student.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 

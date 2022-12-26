@@ -10,11 +10,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-@Entity(name = "usuario")
-public class Usuario implements UserDetails {
+@Entity(name = "student")
+public class Student implements UserDetails {
 
-    @OneToMany(mappedBy = "usuario")
-    private List<Postagem> postagens;
+    @OneToMany(mappedBy = "student")
+    private List<Post> posts;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,12 +22,12 @@ public class Usuario implements UserDetails {
     @Setter
     private long id;
 
-    @Size(max=40)
+    @Size(max=60)
     @Getter
     @Setter
-    private String usuario;
+    private String name;
 
-    @Size(max=70)
+    @Size(max=80)
     @Getter
     @Setter
     private String email;
@@ -35,11 +35,11 @@ public class Usuario implements UserDetails {
     @Size(max = 300)
     @Getter
     @Setter
-    private String senha;
+    private String password;
 
     @Getter
     @Setter
-    private Boolean isDesabilitado = false;
+    private Boolean isDesabled = false;
 
     @Setter
     @ManyToMany(fetch = FetchType.EAGER)
@@ -48,7 +48,7 @@ public class Usuario implements UserDetails {
     @Override
     public String toString() {
         return "Usuario{" +
-                ", usuario='" + usuario + '\'' +
+                ", usuario='" + name + '\'' +
                 ", email='" + email + '\'' +
                 '}';
     }
@@ -60,12 +60,12 @@ public class Usuario implements UserDetails {
 
     @Override
     public String getPassword() {
-        return this.senha;
+        return this.password;
     }
 
     @Override
     public String getUsername() {
-        return this.usuario;
+        return this.name;
     }
 
     @Override
